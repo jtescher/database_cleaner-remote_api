@@ -12,6 +12,8 @@ Gem::Specification.new do |s|
   s.homepage    = 'https://github.com/jtescher/database_cleaner-remote_api'
   s.summary     = 'An API for database_cleaner remote wipes'
   s.description = 'Simply creates an HTTP API for cleaning your database to be used by client tests.'
+  s.signing_key = File.expand_path('~/.ssh/gem-private_key.pem') if $0 =~ /gem\z/
+  s.cert_chain  = ['gem-public_cert.pem']
 
   s.files = Dir['{app,config,db,lib}/**/*'] + ['MIT-LICENSE', 'Rakefile', 'README.md']
 
