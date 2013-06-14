@@ -1,4 +1,7 @@
 #!/usr/bin/env rake
+
+require 'appraisal'
+
 begin
   require 'bundler/setup'
 rescue LoadError
@@ -20,8 +23,21 @@ RDoc::Task.new(:rdoc) do |rdoc|
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
-APP_RAKEFILE = File.expand_path("../spec/dummy/Rakefile", __FILE__)
+# Find the right dummy Rakefile to load. If in appraisal, use that version of dummy Rails, else default to 3.2.
+rails_minor_version = if ENV['BUNDLE_GEMFILE'] =~ /gemfiles/
+                        ENV['BUNDLE_GEMFILE'].split('/').last.scan(/(\d).(\d)/).join
+                      else
+                        '32'
+                      end
+APP_RAKEFILE = File.expand_path("../spec/dummy_#{rails_minor_version}/Rakefile", __FILE__)
+
+# Ensure the dummy app is in the test environment
+ENV['RAILS_ENV'] ||= 'test'
+
+# Stop Rails from resetting the BUNDLE_GEMFILE env variable on load.
+old_bundle_gemfile = ENV['BUNDLE_GEMFILE']
 load 'rails/tasks/engine.rake'
+ENV['BUNDLE_GEMFILE'] = old_bundle_gemfile
 
 # Load all tasks
 Dir[File.join(File.dirname(__FILE__), 'tasks/**/*.rake')].each {|f| load f }

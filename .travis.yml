@@ -1,8 +1,13 @@
 language: ruby
+before_install: gem install bundler
 rvm:
-  - jruby-19mode
+  - jruby-19mode-1.7.4
   - jruby-head
   - ruby-head
   - 2.0.0
   - 1.9.3
   - rbx-19mode
+gemfile:
+  - gemfiles/rails_3.1.gemfile
+  - gemfiles/rails_3.2.gemfile
+  - gemfiles/rails_4.0.gemfile
