@@ -68,6 +68,35 @@ Then the users have been removed:
 User.count #=> 0
 ```
 
+## Usage (As Client)
+
+DatabaseCleaner::RemoteApi can also be used between rails servers by the client rails app.
+First install the gem (You don't have to mount the engine in routes.rb)
+
+Then configure the server URL (if different than localhost:3000/factories) in
+`spec/support/database_cleaner-remote_api.rb`
+
+```ruby
+require 'database_cleaner/remote_api'
+
+DatabaseCleaner::RemoteApi.configure do |config|
+  config.server_url = 'http://localhost:3001'  # Default: http://localhost:3000
+  config.server_mount_path = '/remote_models'  # Default: /factories
+end
+```
+
+Then you can wipe the remote server's database after each test has been run:
+
+```ruby
+RSpec.configure do |config|
+
+  config.after(:each) do
+    DatabaseCleaner::RemoteApi.clean
+  end
+
+end
+```
+
 
 ## Contributing
 
