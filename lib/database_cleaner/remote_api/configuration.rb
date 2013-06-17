@@ -5,7 +5,7 @@ module DatabaseCleaner
 
       def initialize
         @server_url = 'http://localhost:3000'
-        @server_mount_path = '/factories'
+        @server_mount_path = '/database_cleaner'
       end
 
       def server_url=(server_url)

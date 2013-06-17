@@ -12,10 +12,10 @@ describe DatabaseCleaner::RemoteApi do
 
     it 'accepts a server_mount_path option' do
       expect {
-        DatabaseCleaner::RemoteApi.configure { |config| config.server_mount_path = '/models' }
+        DatabaseCleaner::RemoteApi.configure { |config| config.server_mount_path = '/db_cleaner' }
       }.to change {
         DatabaseCleaner::RemoteApi.configuration.server_mount_path
-      }.from('/factories').to('/models')
+      }.from('/database_cleaner').to('/db_cleaner')
     end
   end
 end
