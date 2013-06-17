@@ -10,6 +10,8 @@ Tested against ruby-head, ruby 2.0.0, ruby 1.9.3,  jruby-19mode, jruby-head, and
 (https://codeclimate.com/github/jtescher/database_cleaner-remote_api)
 [![Dependency Status](https://gemnasium.com/jtescher/database_cleaner-remote_api.png)]
 (https://gemnasium.com/jtescher/database_cleaner-remote_api)
+[![Coverage Status](https://coveralls.io/repos/jtescher/database_cleaner-remote_api/badge.png)]
+(https://coveralls.io/r/jtescher/database_cleaner-remote_api)
 
 
 ##Installation
@@ -78,7 +80,6 @@ Then configure the server URL (if different than localhost:3000/database_cleaner
 
 ```ruby
 require 'database_cleaner/remote_api'
-
 DatabaseCleaner::RemoteApi.configure do |config|
   config.server_url = 'http://localhost:3001'  # Default: http://localhost:3000
   config.server_mount_path = '/db_cleaner'     # Default: /database_cleaner
@@ -89,11 +90,9 @@ Then you can wipe the remote server's database after each test has been run:
 
 ```ruby
 RSpec.configure do |config|
-
   config.after(:each) do
     DatabaseCleaner::RemoteApi.clean
   end
-
 end
 ```
 
